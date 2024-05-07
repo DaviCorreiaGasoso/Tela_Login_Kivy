@@ -1,48 +1,86 @@
 from kivy.app import App
-from kivy.uix.button import Button
 from kivy.uix.label import Label
+from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
-from kivy.core.window import Window
 from kivy.uix.floatlayout import FloatLayout
+from kivy.graphics import Color, Rectangle
+from kivy.core.window import Window
 from kivy.uix.image import AsyncImage
 
-class Tela_Login (App):
+Window.size = (900,500)
+
+class FloatApp(App):
     def build(self):
-        Window.clearcolor[1,1,1,1]
-
-        layout = FloatLayout()
+        Window.clearcolor=(0, 0, 1, 0)
         
-        icon_login = AsyncImage(source='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYIVzk5YNtb9B9KuWbVrWQTCpzxq3iY3eQn7xzw2VKfw&s',  pos_hint={'center_x':0.10, 'center_y':0.10})
-        self.input_login = TextInput(hint_text='Login: ', pos_hint={'center_x':0.8, 'center_y':0.8}, color=[0,0,0,1])
-        self.input_senha = TextInput(hint_text='Senha: ', pos_hint={'center_x':0.6, 'center_y':0.6}, color=[0,0,0,1])
+        flo = FloatLayout()
+        icon_login = AsyncImage(
+            source='https://cdn-icons-png.freepik.com/512/295/295128.png',
+            pos=(325, 350),
+            size_hint= (.4, .4)
+            )
 
-        botao_entrar = Button(text='Entrar', size_hint=(None, None), size=(150,100), pos_hint={'center_x': 0.4, 'center_y': 0.4}, on_press = self.entrar)
-        botao_cadastrar = Button(text='Cadastrar', size_hint=(None, None), size=(150,100), pos_hint={'center_x': 0.2, 'center_y': 0.2}, on_press = self.cadastrar)
+        flo.add_widget(icon_login)
+        l1 = Button(
+            text="Login", size_hint=(.2, .1),
+            pos=(200, 350), color = [1,1,1,1]
+        )
 
-        self.label_cadastrar = Label(color=[0,0,0,1])
-        self.label_entrar = Label(color=[0,0,0,1])
+        flo.add_widget(l1)
 
-        layout.add_widget(icon_login)
-        layout.add_widget(self.input_login)
-        layout.add_widget(self.input_senha)
-        layout.add_widget(botao_cadastrar)
-        layout.add_widget(botao_entrar)
-        layout.add_widget(self.label_cadastrar)
-        layout.add_widget(self.label_entrar)
+        self.t1 = TextInput(size_hint=(.4, .1), pos=(400, 350))
+        flo.add_widget(self.t1)
+        
+        l2 = Button(
+            text="Senha", size_hint=(.2, .1),
+            pos=(200, 250),color = [1,1,1,1]
+        )
+        
+        flo.add_widget(l2)
 
-        return layout
+        t2 = TextInput(
+            multiline=True, size_hint=(.4, .1), pos=(400, 250)
+        )
+
+        flo.add_widget(t2)
+        
+        b1 = Button(
+            text='Entrar', size_hint = (.2, .1),
+            pos_hint = {'center_x':.5, 'center_y':.07},
+            on_press = self.entrar
+        )
+        b2 = Button(
+            text='Cadastrar', size_hint = (.2, .1),
+            pos_hint = {'center_x':.5, 'center_y':.20},
+            on_press = self.cadastrar
+        )
+        
+        self.label_cadastrar = Label(
+            pos_hint = {'center_x': .50, 'center_y': .30}, 
+            color = [1,1,1,1]
+        )
+
+        self.label_entrar = Label(
+            pos_hint = {'center_x': .50, 'center_y': .30}, 
+            color = [1,1,1,1]
+        )
+        
+        flo.add_widget(b1)
+        flo.add_widget(b2)
+        flo.add_widget(self.label_cadastrar)
+        flo.add_widget(self.label_entrar)
+        
+        return flo
 
     def cadastrar(self, instance):
-        login = self.input_login.text
-        mensagem = f'O Login {login} foi cadastrado'
+        login = self.t1.text
+        mensagem = f'O Login {login} foi cadastrado!'
         self.label_cadastrar.text = mensagem
     
     def entrar(self, instance):
-        login = self.input_login.text
-        mensagem = f'O Login {login} entrou no sistema'
-        self.label_entrar.text = mensagem
+        login = self.t1.text
+        mensagem = f'O login {login} entrou no sistema!'
+        self.label_cadastrar.text = mensagem
 
-Tela_Login().run()
-    
-    
-
+      
+FloatApp().run()
