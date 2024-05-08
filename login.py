@@ -13,73 +13,109 @@ class FloatApp(App):
     def build(self):
         Window.clearcolor=(0, 0, 1, 0)
         
-        flo = FloatLayout()
+        layout_principal = FloatLayout()
         icon_login = AsyncImage(
             source='https://cdn-icons-png.freepik.com/512/295/295128.png',
             pos=(325, 350),
             size_hint= (.4, .4)
             )
+        
+        layout_principal.add_widget(icon_login)
 
-        flo.add_widget(icon_login)
-        l1 = Button(
-            text="Login", size_hint=(.2, .1),
-            pos=(200, 350), color = [1,1,1,1]
+        label_login = Label(
+            text="Login", 
+            size_hint=(.2, .1),
+            pos=(195, 350),
+            color = [1,1,1,1],
+            halign = ('center')
+        )
+        with label_login.canvas.before:
+            Color (0.2, 0.5, 0.7, 1),
+            Rectangle (
+            pos=(200,350),
+            size=(200, 60)
+            )
+
+        layout_principal.add_widget(label_login)
+
+        self.input_login = TextInput(
+            multiline= False,
+            size_hint=(.4, .1),
+            pos=(400, 350),
+            hint_text='Digite o seu login aqui...',
+            padding_y=(20)
+            )
+        
+        layout_principal.add_widget(self.input_login)
+        
+        label_senha = Label(
+            text="Senha", 
+            size_hint=(.2, .1),
+            pos=(195, 250),
+            color = [1,1,1,1],
+            halign = ('center')
+        )
+        with label_senha.canvas.before:
+            Color (0.2, 0.5, 0.7, 1),
+            Rectangle (
+            pos=(200,250),
+            size=(200, 60)
+            )
+        
+        layout_principal.add_widget(label_senha)
+
+        input_senha = TextInput(
+            multiline= False,
+            size_hint=(.4, .1),
+            pos=(400, 250),
+            hint_text='Digite o sua senha aqui...',
+            padding_y=(20)
         )
 
-        flo.add_widget(l1)
-
-        self.t1 = TextInput(size_hint=(.4, .1), pos=(400, 350))
-        flo.add_widget(self.t1)
+        layout_principal.add_widget(input_senha)
         
-        l2 = Button(
-            text="Senha", size_hint=(.2, .1),
-            pos=(200, 250),color = [1,1,1,1]
-        )
-        
-        flo.add_widget(l2)
-
-        t2 = TextInput(
-            multiline=True, size_hint=(.4, .1), pos=(400, 250)
-        )
-
-        flo.add_widget(t2)
-        
-        b1 = Button(
-            text='Entrar', size_hint = (.2, .1),
-            pos_hint = {'center_x':.5, 'center_y':.07},
+        botao_entrar = Button(
+            text='Entrar', 
+            size_hint = (.2, .1),
+            pos_hint = {'center_x':.5,'center_y':.07},
             on_press = self.entrar
         )
-        b2 = Button(
-            text='Cadastrar', size_hint = (.2, .1),
+
+        layout_principal.add_widget(botao_entrar)
+
+        botao_cadastrar = Button(
+            text='Cadastrar', 
+            size_hint = (.2, .1),
             pos_hint = {'center_x':.5, 'center_y':.20},
             on_press = self.cadastrar
         )
         
+        layout_principal.add_widget(botao_cadastrar)
+
         self.label_cadastrar = Label(
             pos_hint = {'center_x': .50, 'center_y': .30}, 
             color = [1,1,1,1]
         )
+
+        layout_principal.add_widget(self.label_cadastrar)
 
         self.label_entrar = Label(
             pos_hint = {'center_x': .50, 'center_y': .30}, 
             color = [1,1,1,1]
         )
         
-        flo.add_widget(b1)
-        flo.add_widget(b2)
-        flo.add_widget(self.label_cadastrar)
-        flo.add_widget(self.label_entrar)
+        layout_principal.add_widget(self.label_entrar)
         
-        return flo
+        return layout_principal
 
     def cadastrar(self, instance):
-        login = self.t1.text
+        login = self.input_login.text
         mensagem = f'O Login {login} foi cadastrado!'
         self.label_cadastrar.text = mensagem
     
     def entrar(self, instance):
-        login = self.t1.text
-        mensagem = f'O login {login} entrou no sistema!'
+        login = self.input_login.text
+        mensagem = f'O Login {login} entrou no sistema!'
         self.label_cadastrar.text = mensagem
 
       
